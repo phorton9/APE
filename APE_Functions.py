@@ -203,7 +203,7 @@ def gradientL(cost, alphas, betas, rhoT, rho0, penalty, alphaTarget, betaTarget)
     numbers = []
     alphaOverall = 0
     betaOverall = np.zeros((len(alphas)))
-    
+
     for x in range(len(alphas)):
         tempN = number(alphas[x], betas[x], rhoT[x], rho0[x])
         numbers.append(tempN)
