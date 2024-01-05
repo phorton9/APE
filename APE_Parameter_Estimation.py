@@ -1,5 +1,5 @@
 from APE_Functions import *
-
+import time
 try:
     groups = int(input('Enter the number of groups: \n'))
 except:
@@ -41,6 +41,9 @@ for i in range(groups):
 cost = np.array(cost)      
 cost_check = cost > 0
 
+ratio = np.max(cost)
+cost /= ratio
+
 assert sum(cost_check) == groups, "All costs must be positive"
  
 try:
@@ -66,6 +69,7 @@ etaList = [0.00000001,0.00000001,0.00000001,0.00000001,0.00000001,0.00000001,0.0
 penalties = np.logspace(-1,12,14)
 
 
+
 for x,penalty in enumerate(penalties):
     iters = 0
     norms = 1
@@ -78,12 +82,14 @@ for x,penalty in enumerate(penalties):
         oldAB = newAB
         iters += 1
         
-        
+    
 ##Print Results
 total_cost = 0
 for n in range(groups):
     vars()['n'+ str(n)] = np.ceil(number(alphas[n],betas[n],rhoT[n], rho0[n]))
     total_cost+= vars()['n'+ str(n)]*cost[n]
+    
+total_cost *= ratio
 print('\n')
 print('******RESULTS******')
 print(f'Total cost: {total_cost}')
